@@ -1,7 +1,8 @@
 from newton import newton_method
+# help(newton_method)
 
 def f(x):
-    return x**2 - 2
+    return (x**4)/4 - x**3 - x
 
-root = newton_method(f, x0=1.0)
+root = newton_method(f, x0=0)
 print("root:", root)

@@ -69,6 +69,8 @@ def newton_method(f, x0, tol=1e-6, iteration=100):
         # Compute first and second derivatives numerically
         first_derivatives = finite_difference_first(f, x)
         second_derivatives = finite_difference_second(f, x)
+        # check whether second derivitives is zero
+        assert second_derivatives == 0, "Second derivative is zero."
         # Update estimate using Newton's method formula
         x_t = x - first_derivatives / second_derivatives
         # Check for convergence
@@ -77,3 +79,4 @@ def newton_method(f, x0, tol=1e-6, iteration=100):
             return x_t
         x = x_t
     return x_t
+
