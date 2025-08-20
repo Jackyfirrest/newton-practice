@@ -18,7 +18,6 @@ def finite_difference_first(f, x, eps=1e-5):
     """
     return (f(x + eps) - f(x)) / (eps)
 
-
 def finite_difference_second(f, x, eps=1e-5):
     """
     Approximate the second derivative of a function at a point using finite differences.
@@ -38,7 +37,6 @@ def finite_difference_second(f, x, eps=1e-5):
         The approximate second derivative of f at x.
     """
     return (finite_difference_first(f, x + eps) - finite_difference_first(f, x)) / (eps)
-
 
 def newton_method(f, x0, tol=1e-6, iteration=100):
     """
@@ -77,3 +75,4 @@ def newton_method(f, x0, tol=1e-6, iteration=100):
             return x_t
         x = x_t
     return x_t
+            
