@@ -1,6 +1,6 @@
 import warnings
 
-# Newton's method implementation with numerical derivatives using finite differences
+# Newton's method implementation with derivatives
 
 def finite_difference_first(f, x, eps=1e-5):
     """
