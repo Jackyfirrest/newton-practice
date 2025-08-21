@@ -1,4 +1,6 @@
 import warnings
+import numpy as np
+from scipy.optimize import approx_fprime, approx_derivative
 
 # Newton's method implementation with derivatives
 
@@ -91,3 +93,34 @@ def newton_method(f, x0, tol=1e-6, iteration=100):
         x = x_t
     return x_t
 
+def multivariate_newton(f, x0, tol=1e-6, max_iter=100):
+    """
+    Multivariate Newton's method for finding a root or minimum of f.
+
+    Parameters
+    ----------
+    f : callable
+        Function to optimize. Should take a 1D numpy array and return a scalar.
+    x0 : array-like
+        Initial guess (1D array).
+    tol : float
+        Tolerance for convergence.
+    max_iter : int
+        Maximum number of iterations.
+
+    Returns
+    -------
+    x : ndarray
+        Estimated optimum.
+    """
+    x = np.array(x0, dtype=float)
+    for i in range(max_iter):
+        grad = approx_fprime(x, f, epsilon=1e-8)
+        hess = approx_derivative(f, x, method='2-point', abs_step=1e-5)
+        delta = np.dot(np.linalg.inv(hess), grad)
+        x_new = x - delta
+        if np.linalg.norm(x_new - x) < tol:
+            print("Stop iteration.")
+            return x_new
+        x = x_new
+    return x
