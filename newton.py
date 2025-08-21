@@ -1,3 +1,7 @@
+import warnings
+
+# Newton's method implementation with numerical derivatives using finite differences
+
 def finite_difference_first(f, x, eps=1e-5):
     """
     Approximate the first derivative of a function at a point using finite differences.
@@ -64,6 +68,11 @@ def newton_method(f, x0, tol=1e-6, iteration=100):
     -----
     This implementation uses finite differences to approximate the first and second derivatives.
     """
+    if not callable(f):
+        raise TypeError(f"Argument is not a function, it is of type {type(f)}")
+    if not isinstance(x0, (int, float)):
+        raise TypeError(f"Initial guess x0 must be a number, got {type(x0)}")
+
     x = x0
     for i in range(iteration):
         # Compute first and second derivatives numerically
@@ -73,6 +82,8 @@ def newton_method(f, x0, tol=1e-6, iteration=100):
         assert second_derivatives == 0, "Second derivative is zero."
         # Update estimate using Newton's method formula
         x_t = x - first_derivatives / second_derivatives
+        if abs(x_t - x) > 1e6:
+            warnings.warn(f"Large step detected")
         # Check for convergence
         if abs(x_t - x) < tol:
             print("stop iteration")
